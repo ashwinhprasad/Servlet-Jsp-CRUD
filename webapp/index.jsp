@@ -7,7 +7,16 @@
 <title>Student DB</title>
 </head>
 <body>
-	<h1>Welcome to Student Database Management System</h1>
+	
+	<%
+		if(session.getAttribute("user") == null){
+			response.sendRedirect("login.jsp");
+		}
+	
+	%>
+
+
+	<h1>Welcome to Student Database Management System <%=session.getAttribute("user") %></h1>
 	<form action="addStud" method="post">
 		<input type="text" name="name" placeholder="Enter Name"  >
 		<input type="number" name="age" placeholder="Enter Age"  >
@@ -32,8 +41,12 @@
 	%>
 	<%
 	while(rs.next()){
-		out.println("Id: "+rs.getString("id")+" - "+rs.getString("name")+" - "+rs.getString("year")+" Year <a href='del?id="+rs.getString("id")+"'>Delete</a> <br>");
+		out.println("Id: "+rs.getString("id")+" - "+rs.getString("name")+" - "+rs.getString("year")+" Year <a href='del?id="+rs.getString("id")+"'>Delete</a> <br>");	
 	}
+	st.close();
+	con.close();
 	%>
+	
+	<h3>Want to <a href="logout" >Logout</a>?</h3>
 </body>
 </html>
